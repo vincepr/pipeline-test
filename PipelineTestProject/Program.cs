@@ -2,6 +2,7 @@
 using System.Text.Json;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using NUnit.Framework.Internal;
 using PipelineTestProject.Database;
 using TestingFixtures;
 
@@ -11,6 +12,7 @@ class Program
 {
     static void Main(string[] args)
     {
+        
         //Func<string, List<PipelineResult>> result = null;
         
         IServiceCollection services = new ServiceCollection();

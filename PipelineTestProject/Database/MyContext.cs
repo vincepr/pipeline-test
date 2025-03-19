@@ -1,16 +1,26 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Numerics;
 using Microsoft.EntityFrameworkCore;
+using Vector = Pgvector.Vector;
 
 namespace PipelineTestProject.Database;
 
-public class MyContext(DbContextOptions<MyContext> options) : DbContext(options)
+public class MyContext(DbContextOptions<MyContext> options) : 
+    DbContext(options)
 {
     public DbSet<Article> Articles { get; set; }
     public DbSet<Category> Categories { get; set; }
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    {
+        // optionsBuilder.UseNpgsql(o => o.UseVector());
+        base.OnConfiguring(optionsBuilder);
+    }
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
+        modelBuilder.HasPostgresExtension("vector");
         modelBuilder.Entity<Category>().HasData([
             new ()
             {
@@ -72,5 +82,9 @@ public record Article
 public record Category
 {
     [Key] public int Id { get; init; }
+    
     public required string Name { get; init; }
+    
+    [Column(TypeName = "vector(3)")]
+    public Vector? Embedding { get; set; }
 }

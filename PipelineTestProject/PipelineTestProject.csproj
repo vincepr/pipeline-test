@@ -10,7 +10,9 @@
 
     <ItemGroup>
       <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="10.0.0-preview.1.25080.5" />
+      <PackageReference Include="Pgvector.EntityFrameworkCore" Version="0.2.1" />
       <PackageReference Include="TestingFixtures.FileBasedTestFixture" Version="1.0.0" />
+      <PackageReference Include="TestingFixtures.PostgresDockerTestFixture" Version="1.0.0" />
     </ItemGroup>
 
 </Project>

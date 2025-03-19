@@ -1,0 +1,18 @@
+version: "3"
+
+services:
+  postgres:
+    build: .
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./data:/var/lib/postgresql/data
+      - ./init_pgvector.sql:/docker-entrypoint-initdb.d/init_pgvector.sql
+    environment:
+      POSTGRES_USER: myuser
+      POSTGRES_PASSWORD: mypassword
+      POSTGRES_DB: mydb
+
+# NOTE:
+#      - In the created Db we also need to install the extension we just compiled, can be done in OnModelCreating etc:
+#      CREATE EXTENSION IF NOT EXISTS vector;
